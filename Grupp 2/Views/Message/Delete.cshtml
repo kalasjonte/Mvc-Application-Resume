@@ -1,0 +1,40 @@
+﻿@model Data.Models.Message
+
+@{ ViewBag.Title = "Delete"; }
+
+<h2>Delete</h2>
+
+<h3>Är du säker på att du vill ta bort detta meddelandet?</h3>
+<div>
+    <h4>Message</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+    </dl>
+
+
+
+<button class="MessageDelete" data-id="@Model.MessageID"> Radera Meddelandet </button>
+
+@section Scripts {
+
+    <script>
+        $('.MessageDelete').click(function () {
+            var MsgID = $(this).data('id');
+
+            $.post('DeleteAjax/' + MsgID, function () {
+                window.alert('Meddelandet har tagits bort');
+                window.location.href = '@Url.Content("~/Home/index")';
+            })
+        });
+
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}
